@@ -1,0 +1,338 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout | AURA JAWANI</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+ background:#080808;
+ color:white;
+ font-family:Arial,sans-serif;
+}
+
+header{
+ padding:24px 7%;
+ border-bottom:1px solid #333;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+}
+
+.logo{
+ color:#d6b56d;
+ font-size:23px;
+ font-weight:bold;
+ letter-spacing:3px;
+}
+
+header a{
+ color:white;
+ text-decoration:none;
+}
+
+.container{
+ max-width:1050px;
+ margin:45px auto;
+ padding:20px;
+}
+
+h1{
+ text-align:center;
+ margin-bottom:40px;
+ letter-spacing:3px;
+}
+
+.checkout-grid{
+ display:grid;
+ grid-template-columns:1.5fr 1fr;
+ gap:30px;
+}
+
+.box{
+ background:#151515;
+ padding:28px;
+ margin-bottom:22px;
+}
+
+h2{
+ font-size:20px;
+ margin-bottom:22px;
+ color:#d6b56d;
+}
+
+label{
+ display:block;
+ margin:15px 0 8px;
+ font-size:13px;
+ color:#ccc;
+}
+
+input,textarea,select{
+ width:100%;
+ padding:14px;
+ background:#080808;
+ border:1px solid #444;
+ color:white;
+ outline:none;
+}
+
+input:focus,textarea:focus{
+ border-color:#d6b56d;
+}
+
+textarea{
+ resize:vertical;
+ min-height:90px;
+}
+
+.row{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:15px;
+}
+
+.payment-option{
+ display:block;
+ padding:15px;
+ border:1px solid #444;
+ margin-bottom:12px;
+ cursor:pointer;
+}
+
+.payment-option input{
+ width:auto;
+ margin-right:10px;
+}
+
+.summary-item{
+ display:flex;
+ justify-content:space-between;
+ gap:10px;
+ margin:15px 0;
+ color:#ccc;
+ font-size:14px;
+}
+
+.total{
+ border-top:1px solid #444;
+ padding-top:20px;
+ color:#d6b56d;
+ font-size:21px;
+ font-weight:bold;
+}
+
+.place-order{
+ width:100%;
+ padding:17px;
+ background:#d6b56d;
+ border:none;
+ font-weight:bold;
+ cursor:pointer;
+ margin-top:25px;
+ font-size:15px;
+}
+
+.place-order:hover{
+ background:white;
+}
+
+.note{
+ color:#999;
+ font-size:12px;
+ line-height:1.6;
+ margin-top:15px;
+}
+
+@media(max-width:750px){
+ .checkout-grid{grid-template-columns:1fr}
+ .row{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+ <div class="logo">AURA JAWANI</div>
+ <a href="cart.html">← BACK TO CART</a>
+</header>
+
+<div class="container">
+
+<h1>CHECKOUT</h1>
+
+<form id="checkoutForm">
+
+<div class="checkout-grid">
+
+<div>
+
+<div class="box">
+<h2>CONTACT INFORMATION</h2>
+
+<label>Full Name</label>
+<input type="text" name="name" required>
+
+<label>Email Address</label>
+<input type="email" name="email" required>
+
+<label>Phone Number</label>
+<input type="tel" name="phone" required>
+</div>
+
+<div class="box">
+<h2>DELIVERY ADDRESS</h2>
+
+<label>Street Address</label>
+<input type="text" name="address" required>
+
+<div class="row">
+<div>
+<label>City</label>
+<input type="text" name="city" required>
+</div>
+
+<div>
+<label>Postal Code</label>
+<input type="text" name="postal" required>
+</div>
+</div>
+
+<label>Country</label>
+<select name="country" required>
+<option value="">Select Country</option>
+<option>Portugal</option>
+<option>India</option>
+<option>United Kingdom</option>
+<option>United States</option>
+<option>Other</option>
+</select>
+
+<label>Order Notes (Optional)</label>
+<textarea name="notes"></textarea>
+</div>
+
+<div class="box">
+<h2>PAYMENT METHOD</h2>
+
+<label class="payment-option">
+<input type="radio" name="payment" value="card" required>
+Credit / Debit Card (Secure Online Payment)
+</label>
+
+<label class="payment-option">
+<input type="radio" name="payment" value="paypal">
+PayPal
+</label>
+
+<p class="note">
+Card payments will require a secure payment gateway.
+Never enter or store card numbers on this website form.
+</p>
+</div>
+
+</div>
+
+<div>
+
+<div class="box">
+<h2>YOUR ORDER</h2>
+
+<div id="orderItems"></div>
+
+<div class="summary-item">
+<span>Subtotal</span>
+<span id="subtotal">€0.00</span>
+</div>
+
+<div class="summary-item">
+<span>Shipping</span>
+<span>€0.00*</span>
+</div>
+
+<div class="summary-item total">
+<span>Total</span>
+<span id="total">€0.00</span>
+</div>
+
+<p class="note">
+* Shipping is a temporary estimate. Final delivery charges
+must be configured before accepting real orders.
+</p>
+
+<button type="submit" class="place-order">
+CONTINUE TO PAYMENT
+</button>
+
+</div>
+
+</div>
+
+</div>
+</form>
+</div>
+
+<script>
+function getCart(){
+ return JSON.parse(localStorage.getItem('auraCart') || '[]');
+}
+
+function displayOrder(){
+ const cart=getCart();
+ const container=document.getElementById('orderItems');
+
+ if(cart.length===0){
+  container.innerHTML='<p>Your cart is empty. <a href="shop.html" style="color:#d6b56d">Shop Now</a></p>';
+  document.querySelector('.place-order').disabled=true;
+  return;
+ }
+
+ let subtotal=0;
+
+ container.innerHTML=cart.map(item=>{
+  const amount=Number(item.price)*Number(item.quantity);
+  subtotal+=amount;
+
+  return `<div class="summary-item">
+  <span>${escapeHTML(item.name)} × ${Number(item.quantity)}</span>
+  <span>€${amount.toFixed(2)}</span>
+  </div>`;
+ }).join('');
+
+ document.getElementById('subtotal').textContent='€'+subtotal.toFixed(2);
+ document.getElementById('total').textContent='€'+subtotal.toFixed(2);
+}
+
+function escapeHTML(value){
+ return String(value).replace(/[&<>"']/g,c=>({
+ '&':'&amp;','<':'&lt;','>':'&gt;',
+ '"':'&quot;',"'":'&#39;'
+ })[c]);
+}
+
+document.getElementById('checkoutForm').addEventListener('submit',function(e){
+ e.preventDefault();
+
+ if(getCart().length===0){
+  alert('Your cart is empty!');
+  return;
+ }
+
+ const data=new FormData(this);
+ const payment=data.get('payment');
+
+ if(payment==='card' || payment==='paypal'){
+  alert('Payment gateway is not connected yet. No payment has been taken.');
+ }
+});
+
+displayOrder();
+</script>
+
+</body>
+</html>
