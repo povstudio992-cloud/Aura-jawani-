@@ -1,0 +1,315 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Account | AURA JAWANI</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #080808;
+    color: white;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+}
+
+header {
+    padding: 25px 7%;
+    border-bottom: 1px solid #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: #d6b56d;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+}
+
+.container {
+    max-width: 450px;
+    margin: 60px auto;
+    padding: 20px;
+}
+
+.account-box {
+    background: #151515;
+    padding: 35px;
+    border: 1px solid #292929;
+}
+
+h1 {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 12px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #999;
+    font-size: 13px;
+    margin-bottom: 30px;
+}
+
+.tabs {
+    display: flex;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #444;
+}
+
+.tabs button {
+    width: 50%;
+    padding: 14px;
+    background: transparent;
+    color: #999;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.tabs button.active {
+    color: #d6b56d;
+    border-bottom: 2px solid #d6b56d;
+}
+
+label {
+    display: block;
+    margin: 16px 0 8px;
+    color: #ccc;
+    font-size: 13px;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    background: #080808;
+    border: 1px solid #444;
+    color: white;
+    outline: none;
+}
+
+input:focus {
+    border-color: #d6b56d;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 16px;
+    margin-top: 25px;
+    background: #d6b56d;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background: white;
+}
+
+.forgot {
+    display: block;
+    text-align: right;
+    margin-top: 15px;
+    color: #d6b56d;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.message {
+    margin-top: 15px;
+    font-size: 13px;
+    color: #d6b56d;
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+footer {
+    text-align: center;
+    color: #777;
+    padding: 25px;
+    font-size: 12px;
+}
+
+@media(max-width:500px) {
+    .container {
+        margin: 25px auto;
+    }
+
+    .account-box {
+        padding: 25px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">AURA JAWANI</div>
+    <a href="index.html">HOME</a>
+</header>
+
+<div class="container">
+
+<div class="account-box">
+
+<h1>MY ACCOUNT</h1>
+<p class="subtitle">Welcome to AURA JAWANI</p>
+
+<div class="tabs">
+    <button id="loginTab" class="active"
+    onclick="showForm('login')">LOGIN</button>
+
+    <button id="signupTab"
+    onclick="showForm('signup')">SIGN UP</button>
+</div>
+
+<form id="loginForm">
+
+    <label>Email Address</label>
+    <input type="email" name="email" required>
+
+    <label>Password</label>
+    <input type="password" name="password"
+    minlength="8" required>
+
+    <a href="#" class="forgot"
+    onclick="showForm('forgot');return false;">
+    Forgot Password?
+    </a>
+
+    <button type="submit" class="submit-btn">
+    LOGIN
+    </button>
+
+</form>
+
+<form id="signupForm" class="hidden">
+
+    <label>Full Name</label>
+    <input type="text" name="name" required>
+
+    <label>Email Address</label>
+    <input type="email" name="email" required>
+
+    <label>Password</label>
+    <input type="password" name="password"
+    minlength="8" required>
+
+    <label>Confirm Password</label>
+    <input type="password" name="confirmPassword"
+    minlength="8" required>
+
+    <button type="submit" class="submit-btn">
+    CREATE ACCOUNT
+    </button>
+
+</form>
+
+<form id="forgotForm" class="hidden">
+
+    <p style="color:#aaa;font-size:13px;line-height:1.6">
+    Enter your registered email address to request a
+    password reset.
+    </p>
+
+    <label>Email Address</label>
+    <input type="email" name="email" required>
+
+    <button type="submit" class="submit-btn">
+    REQUEST PASSWORD RESET
+    </button>
+
+    <a href="#" class="forgot"
+    onclick="showForm('login');return false;">
+    Back to Login
+    </a>
+
+</form>
+
+<div id="message" class="message"></div>
+
+</div>
+</div>
+
+<footer>
+© 2026 AURA JAWANI. ALL RIGHTS RESERVED.
+</footer>
+
+<script>
+function showForm(type) {
+
+    document.getElementById('loginForm').classList.add('hidden');
+    document.getElementById('signupForm').classList.add('hidden');
+    document.getElementById('forgotForm').classList.add('hidden');
+
+    document.getElementById('loginTab').classList.remove('active');
+    document.getElementById('signupTab').classList.remove('active');
+
+    document.getElementById('message').textContent = '';
+
+    if(type === 'login') {
+        document.getElementById('loginForm').classList.remove('hidden');
+        document.getElementById('loginTab').classList.add('active');
+    }
+
+    if(type === 'signup') {
+        document.getElementById('signupForm').classList.remove('hidden');
+        document.getElementById('signupTab').classList.add('active');
+    }
+
+    if(type === 'forgot') {
+        document.getElementById('forgotForm').classList.remove('hidden');
+    }
+}
+
+document.getElementById('signupForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const password = this.password.value;
+    const confirmPassword = this.confirmPassword.value;
+
+    if(password !== confirmPassword) {
+        document.getElementById('message').textContent =
+        'Passwords do not match!';
+        return;
+    }
+
+    document.getElementById('message').textContent =
+    'Signup form ready. Secure account backend is not connected yet.';
+});
+
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    document.getElementById('message').textContent =
+    'Login backend is not connected yet.';
+});
+
+document.getElementById('forgotForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    document.getElementById('message').textContent =
+    'Password reset service is not connected yet.';
+});
+</script>
+
+</body>
+</html>
