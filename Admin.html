@@ -1,0 +1,525 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard | AURA JAWANI</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #080808;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    background: #111;
+    border-right: 1px solid #333;
+    padding: 25px 15px;
+}
+
+.logo {
+    color: #d6b56d;
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.sidebar a {
+    display: block;
+    color: #bbb;
+    padding: 15px;
+    text-decoration: none;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background: #d6b56d;
+    color: black;
+}
+
+.main {
+    margin-left: 250px;
+    padding: 30px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+    gap: 15px;
+}
+
+.topbar h1 {
+    font-size: 27px;
+}
+
+.admin {
+    color: #d6b56d;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.stat-card {
+    background: #171717;
+    padding: 25px;
+    border: 1px solid #292929;
+}
+
+.stat-card p {
+    color: #999;
+    font-size: 13px;
+}
+
+.stat-card h2 {
+    color: #d6b56d;
+    margin-top: 15px;
+    font-size: 28px;
+}
+
+.panel {
+    background: #151515;
+    padding: 25px;
+    margin-top: 30px;
+    border: 1px solid #292929;
+    overflow-x: auto;
+}
+
+.panel h2 {
+    margin-bottom: 20px;
+    color: #d6b56d;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 550px;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #333;
+    font-size: 13px;
+}
+
+th {
+    color: #d6b56d;
+}
+
+.status {
+    color: #d6b56d;
+}
+
+button {
+    background: #d6b56d;
+    color: black;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background: white;
+}
+
+.section {
+    display: none;
+}
+
+.section.active {
+    display: block;
+}
+
+.form-box {
+    max-width: 500px;
+    background: #171717;
+    padding: 25px;
+    margin-top: 25px;
+}
+
+.form-box label {
+    display: block;
+    margin: 15px 0 8px;
+    color: #bbb;
+}
+
+.form-box input,
+.form-box textarea {
+    width: 100%;
+    padding: 13px;
+    background: #080808;
+    border: 1px solid #444;
+    color: white;
+}
+
+.form-box button {
+    margin-top: 20px;
+    width: 100%;
+}
+
+@media(max-width:900px) {
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width:650px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .sidebar a {
+        display: inline-block;
+        padding: 10px;
+    }
+
+    .main {
+        margin-left: 0;
+        padding: 18px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .stat-card {
+        padding: 15px;
+    }
+
+    .topbar h1 {
+        font-size: 20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+<div class="logo">AURA JAWANI</div>
+
+<a class="active" onclick="showSection('dashboard',this)">Dashboard</a>
+<a onclick="showSection('products',this)">Products</a>
+<a onclick="showSection('orders',this)">Orders</a>
+<a onclick="showSection('customers',this)">Customers</a>
+<a onclick="showSection('inventory',this)">Inventory</a>
+<a href="index.html">View Website</a>
+
+</aside>
+
+<main class="main">
+
+<div class="topbar">
+<h1>Admin Dashboard</h1>
+<div class="admin">ADMIN PANEL</div>
+</div>
+
+<!-- DASHBOARD -->
+
+<section id="dashboard" class="section active">
+
+<div class="stats">
+
+<div class="stat-card">
+<p>Total Sales</p>
+<h2>€0.00</h2>
+</div>
+
+<div class="stat-card">
+<p>Total Orders</p>
+<h2>0</h2>
+</div>
+
+<div class="stat-card">
+<p>Total Products</p>
+<h2>0</h2>
+</div>
+
+<div class="stat-card">
+<p>Total Customers</p>
+<h2>0</h2>
+</div>
+
+</div>
+
+<div class="panel">
+<h2>Recent Orders</h2>
+
+<table>
+<thead>
+<tr>
+<th>Order ID</th>
+<th>Customer</th>
+<th>Amount</th>
+<th>Status</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>No orders yet</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+</section>
+
+<!-- PRODUCTS -->
+
+<section id="products" class="section">
+
+<div class="panel">
+<h2>Product Management</h2>
+
+<button onclick="document.getElementById('productForm').style.display='block'">
+ADD NEW PRODUCT
+</button>
+
+<div class="form-box" id="productForm" style="display:none">
+
+<label>Product Name</label>
+<input type="text" id="productName">
+
+<label>Price (€)</label>
+<input type="number" id="productPrice" step="0.01">
+
+<label>Product Category</label>
+<input type="text" id="productCategory">
+
+<label>Image URL</label>
+<input type="url" id="productImage">
+
+<button onclick="addProduct()">SAVE PRODUCT</button>
+
+</div>
+
+<table style="margin-top:30px">
+<thead>
+<tr>
+<th>Product</th>
+<th>Price</th>
+<th>Category</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="productList">
+<tr><td colspan="4">No products added yet.</td></tr>
+</tbody>
+</table>
+</div>
+
+</section>
+
+<!-- ORDERS -->
+
+<section id="orders" class="section">
+
+<div class="panel">
+<h2>Order Management</h2>
+<table>
+<thead>
+<tr>
+<th>Order ID</th>
+<th>Customer</th>
+<th>Amount</th>
+<th>Payment</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="5">No orders available yet.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</section>
+
+<!-- CUSTOMERS -->
+
+<section id="customers" class="section">
+
+<div class="panel">
+<h2>Customer Management</h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Email</th>
+<th>Orders</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="3">No customers available yet.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</section>
+
+<!-- INVENTORY -->
+
+<section id="inventory" class="section">
+
+<div class="panel">
+<h2>Inventory Management</h2>
+<table>
+<thead>
+<tr>
+<th>Product</th>
+<th>Stock</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="3">Inventory is currently empty.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</section>
+
+</main>
+
+<script>
+
+function showSection(id, element) {
+
+document.querySelectorAll('.section').forEach(section => {
+section.classList.remove('active');
+});
+
+document.getElementById(id).classList.add('active');
+
+document.querySelectorAll('.sidebar a').forEach(link => {
+link.classList.remove('active');
+});
+
+element.classList.add('active');
+
+}
+
+function addProduct() {
+
+const name = document.getElementById('productName').value.trim();
+const price = Number(document.getElementById('productPrice').value);
+const category = document.getElementById('productCategory').value.trim();
+const image = document.getElementById('productImage').value.trim();
+
+if(!name || !category || !Number.isFinite(price) || price <= 0) {
+alert('Please enter valid product details.');
+return;
+}
+
+let products = JSON.parse(localStorage.getItem('auraProducts') || '[]');
+
+products.push({
+id: Date.now(),
+name,
+price,
+category,
+image
+});
+
+localStorage.setItem('auraProducts', JSON.stringify(products));
+
+renderProducts();
+
+document.getElementById('productName').value = '';
+document.getElementById('productPrice').value = '';
+document.getElementById('productCategory').value = '';
+document.getElementById('productImage').value = '';
+
+alert('Product saved in this browser!');
+}
+
+function renderProducts() {
+
+const products = JSON.parse(localStorage.getItem('auraProducts') || '[]');
+
+const list = document.getElementById('productList');
+
+list.innerHTML = '';
+
+if(products.length === 0) {
+list.innerHTML = '<tr><td colspan="4">No products added yet.</td></tr>';
+return;
+}
+
+products.forEach(product => {
+
+const row = document.createElement('tr');
+
+const name = document.createElement('td');
+name.textContent = product.name;
+
+const price = document.createElement('td');
+price.textContent = '€' + Number(product.price).toFixed(2);
+
+const category = document.createElement('td');
+category.textContent = product.category;
+
+const action = document.createElement('td');
+const deleteButton = document.createElement('button');
+
+deleteButton.textContent = 'DELETE';
+
+deleteButton.onclick = () => {
+if(confirm('Delete this product?')) {
+const updated = products.filter(p => p.id !== product.id);
+localStorage.setItem('auraProducts', JSON.stringify(updated));
+renderProducts();
+}
+};
+
+action.appendChild(deleteButton);
+
+row.append(name, price, category, action);
+list.appendChild(row);
+
+});
+
+}
+
+renderProducts();
+
+</script>
+
+</body>
+</html>
